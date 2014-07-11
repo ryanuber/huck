@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Cloudalogue
 
   # Retrieve the value of an "emulated" kwarg easily
@@ -15,6 +17,20 @@ module Cloudalogue
   #
   def self.getarg args, arg, default
     return args.has_key?(arg) ? args[arg] : default
+  end
+
+  # Read configuration out of a file on the filesystem.
+  #
+  # == Parameters:
+  # path::
+  #   The path to the config file to read
+  #
+  # == Returns:
+  # A hash containing the configuration
+  #
+  def self.config kwargs = {}
+    path = self.getarg kwargs, 'path', '/etc/cloudalogue.yaml'
+    YAML.load_file path
   end
 
 end

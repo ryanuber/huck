@@ -7,7 +7,7 @@ module Cloudalogue
 
     # This method will call the generation method, and return the data in the
     # desired format.
-    def fetch kwargs = {}
+    def dump kwargs = {}
       format = Cloudalogue::getarg kwargs, 'format', 'json'
       data = generate
       if !data.is_a? Hash
