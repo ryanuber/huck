@@ -8,7 +8,7 @@ module Cloudalogue
     # This method will call the generation method, and return the data in the
     # desired format.
     def dump kwargs = {}
-      format = Cloudalogue::getarg kwargs, 'format', 'json'
+      format = Cloudalogue::getarg kwargs, :format, 'json'
       data = generate
       if !data.is_a? Hash
         raise RuntimeError, 'cannot handle non-hash data'
