@@ -8,6 +8,8 @@ require 'cloudalogue/generators/facter'
 require 'cloudalogue/generators/ohai'
 require 'cloudalogue/submitter'
 require 'cloudalogue/submitters/sqs'
+require 'cloudalogue/receiver'
+require 'cloudalogue/receivers/sqs'
 
 module Cloudalogue
 
