@@ -7,7 +7,7 @@ require 'cloudalogue/generator'
 require 'cloudalogue/generators/facter'
 require 'cloudalogue/generators/ohai'
 require 'cloudalogue/submitter'
-require 'cloudalogue/sqs_submitter'
+require 'cloudalogue/submitters/sqs'
 
 module Cloudalogue
 

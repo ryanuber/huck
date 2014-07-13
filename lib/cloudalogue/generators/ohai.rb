@@ -1,5 +1,3 @@
-require 'cloudalogue/generator'
-
 module Cloudalogue
 
   module Generators
@@ -9,9 +7,7 @@ module Cloudalogue
 
       # Load required modules for ohai generator
       def initialize
-        if !Cloudalogue::try_load 'ohai/system'
-          raise RuntimeError, 'unable to load ohai'
-        end
+        require 'ohai/system'
       end
 
       # This method generates the data and returns it as a hash
