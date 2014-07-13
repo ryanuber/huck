@@ -1,6 +1,3 @@
-require 'json'
-require 'yaml'
-
 module Cloudalogue
 
   class Generator
@@ -46,9 +43,9 @@ module Cloudalogue
 
       case name
       when 'facter'
-        gen = FacterGenerator.new
+        gen = Generators::FacterGenerator.new
       when 'ohai'
-        gen = OhaiGenerator.new
+        gen = Generators::OhaiGenerator.new
       end
 
       if !defined? gen

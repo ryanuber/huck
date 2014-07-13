@@ -1,8 +1,11 @@
+require 'json'
+require 'yaml'
+
 require 'cloudalogue/version'
 require 'cloudalogue/util'
 require 'cloudalogue/generator'
-require 'cloudalogue/facter_generator'
-require 'cloudalogue/ohai_generator'
+require 'cloudalogue/generators/facter'
+require 'cloudalogue/generators/ohai'
 require 'cloudalogue/submitter'
 require 'cloudalogue/sqs_submitter'
 
