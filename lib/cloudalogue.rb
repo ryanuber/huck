@@ -20,4 +20,12 @@ module Cloudalogue
     g.dump
   end
 
+  def self.serve kwargs = {}
+    recv_name = Cloudalogue::getarg kwargs, :receiver, nil
+    r = Receiver::factory recv_name
+    r.receive do |msg|
+      puts msg
+    end
+  end
+
 end

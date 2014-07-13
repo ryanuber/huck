@@ -43,7 +43,7 @@ module Cloudalogue
 
         queue = sqs.queues.create config['sqs']['queue_name']
         queue.poll do |msg|
-          yield msg
+          yield msg.body
         end
       end
 
