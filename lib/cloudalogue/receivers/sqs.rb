@@ -21,8 +21,9 @@ module Cloudalogue
         if !config.has_key? 'sqs'
           raise RuntimeError, 'missing sqs config'
         end
-        ['access_key_id', 'secret_access_key', 'region', 'queue'].each do |key|
-          if !config.has_key? key
+        ['access_key_id', 'secret_access_key', 'region',
+         'queue_name'].each do |key|
+          if !config['sqs'].has_key? key
             raise RuntimeError, "missing sqs config: #{key}"
           end
         end
