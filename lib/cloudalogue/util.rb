@@ -33,4 +33,22 @@ module Cloudalogue
     YAML.load_file path
   end
 
+  # Attempts to load a given module by name
+  #
+  # == Parameters:
+  # name::
+  #   The name of the module
+  #
+  # == Returns:
+  # bool
+  #
+  def self.try_load name
+    begin
+      require name
+    rescue LoadError
+      return false
+    end
+    true
+  end
+
 end
