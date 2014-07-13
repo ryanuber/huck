@@ -1,5 +1,3 @@
-require 'yaml'
-
 module Cloudalogue
 
   # Retrieve the value of an "emulated" kwarg easily
