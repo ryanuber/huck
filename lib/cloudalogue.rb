@@ -10,6 +10,8 @@ require 'cloudalogue/submitter'
 require 'cloudalogue/submitters/sqs'
 require 'cloudalogue/receiver'
 require 'cloudalogue/receivers/sqs'
+require 'cloudalogue/handler'
+require 'cloudalogue/handlers/exec'
 
 module Cloudalogue
 
@@ -49,6 +51,14 @@ module Cloudalogue
   #
   def self.serve kwargs = {}
     config = Cloudalogue::config
+    if config.has_key? 'handler'
+      hand_name = config['handler']
+    end
+
+    hand_arg = Cloudalogue::getarg kwargs, :handler, nil
+    hand_name = hand_arg if !hand_arg.nil?
+    h = Handler::factory hand_name
+
     if config.has_key? 'receiver'
       recv_name = config['receiver']
     end
@@ -58,7 +68,7 @@ module Cloudalogue
 
     r = Receiver::factory recv_name
     r.receive do |msg|
-      puts msg
+      h.handle msg
     end
   end
 
