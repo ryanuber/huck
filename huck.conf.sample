@@ -1,9 +1,10 @@
 # Example configuration file for Huck
 # This file should live at /etc/huck.conf
-
 generator: facter
-submitter: sqs
 receiver: sqs
+sender: sqs
+
+# Provider-specific configurations below
 sqs:
   access_key_id: <access_key_id_here>
   secret_access_key: <secret_access_key_here>
