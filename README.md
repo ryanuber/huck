@@ -21,3 +21,4 @@ different queueing service, you can make a new data sender/receiver, etc.
 # Roadmap
 
 * RabbitMQ support
+* Support multiple handlers per message
