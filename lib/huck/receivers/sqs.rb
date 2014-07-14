@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   module Receivers
 
@@ -32,7 +32,7 @@ module Cloudalogue
       # A long-running poller process which reads messages out of the remote
       # queue and yields them to higher-order logic.
       def receive
-        config = Cloudalogue::config
+        config = Huck::config
         verify_config config
 
         sqs = AWS::SQS.new(

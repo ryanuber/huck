@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   # The base sender class
   class Sender
@@ -10,11 +10,11 @@ module Cloudalogue
     #   The name of the sender, or nil to guess
     #
     # == Returns:
-    # A Cloudalogue::Sender instance
+    # A Huck::Sender instance
     #
     def self.factory name
       if name.nil?
-        if Cloudalogue::try_load 'aws-sdk'
+        if Huck::try_load 'aws-sdk'
           name = 'sqs'
         else
           raise RuntimeError, 'unable to load any senders'

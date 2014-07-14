@@ -1,5 +1,5 @@
-# Example configuration file for Cloudalogue
-# This file should live at /etc/cloudalogue.yaml
+# Example configuration file for Huck
+# This file should live at /etc/huck.conf
 
 generator: facter
 submitter: sqs

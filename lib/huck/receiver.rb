@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   # Base receiver class
   class Receiver
@@ -10,11 +10,11 @@ module Cloudalogue
     #   The name of the receiver, or nil to guess
     #
     # == Returns:
-    # A Cloudalogue::Receiver instance
+    # A Huck::Receiver instance
     #
     def self.factory name
       if name.nil?
-        if Cloudalogue::try_load 'aws-sdk'
+        if Huck::try_load 'aws-sdk'
           name = 'sqs'
         else
           raise RuntimeError, 'unable to load any receivers'

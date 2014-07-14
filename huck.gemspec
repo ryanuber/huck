@@ -1,17 +1,17 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cloudalogue/version'
+require 'huck/version'
 
 Gem::Specification.new do |s|
   files           = Dir.glob('**/*').reject { |f| File.directory? f }
-  s.name          = 'cloudalogue'
-  s.version       = Cloudalogue::Version
-  s.summary       = 'Host information via queue'
-  s.description   = 'Get information about hosts using facter and queues'
+  s.name          = 'huck'
+  s.version       = Huck::Version
+  s.summary       = 'Information sharing framework'
+  s.description   = 'Open-ended information sharing framework'
   s.authors       = 'Ryan Uber'
   s.email         = 'ru@ryanuber.com'
   s.files         = files.grep(/^(lib|bin)/)
-  s.homepage      = 'https://github.com/ryanuber/cloudalogue'
+  s.homepage      = 'https://github.com/ryanuber/huck'
   s.license       = 'MIT'
   s.executables   = files.grep(/^bin/) { |f| File.basename f }
   s.test_files    = files.grep(/^spec/)

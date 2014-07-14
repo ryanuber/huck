@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   # Base handler class
   class Handler
@@ -10,7 +10,7 @@ module Cloudalogue
     #   The name of the handler, or nil to guess
     #
     # == Returns:
-    # A Cloudalogue::Handler instance
+    # A Huck::Handler instance
     #
     def self.factory name
       name = 'exec' if name.nil?

@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   # Retrieve the value of an "emulated" kwarg easily
   #
@@ -27,7 +27,7 @@ module Cloudalogue
   # A hash containing the configuration
   #
   def self.config kwargs = {}
-    path = self.getarg kwargs, 'path', '/etc/cloudalogue.yaml'
+    path = self.getarg kwargs, 'path', '/etc/huck.conf'
     YAML.load_file path
   end
 

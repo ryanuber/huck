@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   module Senders
 
@@ -36,7 +36,7 @@ module Cloudalogue
       #   The arbitrary text data to send
       #
       def send msg
-        config = Cloudalogue::config
+        config = Huck::config
         verify_config config
 
         sqs = AWS::SQS.new(

@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   module Handlers
 
@@ -28,7 +28,7 @@ module Cloudalogue
       # Handle an individual message by running an executable, passing in the
       # gathered data via stdin.
       def handle msg
-        config = Cloudalogue::config
+        config = Huck::config
         verify_config config
 
         Open3.popen2 config['exec']['command'] do |stdin, stdout, thread|

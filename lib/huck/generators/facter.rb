@@ -1,4 +1,4 @@
-module Cloudalogue
+module Huck
 
   module Generators
 

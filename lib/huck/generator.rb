@@ -1,11 +1,11 @@
-module Cloudalogue
+module Huck
 
   class Generator
 
     # This method will call the generation method, and return the data in the
     # desired format.
     def dump kwargs = {}
-      format = Cloudalogue::getarg kwargs, :format, 'json'
+      format = Huck::getarg kwargs, :format, 'json'
       data = generate
       if !data.is_a? Hash
         raise RuntimeError, 'cannot handle non-hash data'
@@ -28,13 +28,13 @@ module Cloudalogue
     #   The name of the generator, or empty/nil to guess
     #
     # == Returns:
-    # A Cloudalogue::Generator instance
+    # A Huck::Generator instance
     #
     def self.factory name
       if name.nil?
-        if Cloudalogue::try_load 'facter'
+        if Huck::try_load 'facter'
           name = 'facter'
-        elsif Cloudalogue::try_load 'ohai'
+        elsif Huck::try_load 'ohai'
           name = 'ohai'
         else
           raise RuntimeError, 'unable to load any generators'
