@@ -1,0 +1,11 @@
+[Unit]
+Description=Huck server
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/bin/huck-server
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

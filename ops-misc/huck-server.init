@@ -1,0 +1,53 @@
+# chkconfig: 12345 95 05
+
+# Source functions library
+. /etc/init.d/functions
+
+PROG=huck-server
+HUCK_SERVER=/usr/bin/huck-server
+PIDFILE=/var/run/huck-server.pid
+LOGFILE=/var/log/huck-server.log
+LOCKFILE=/var/lock/subsys/huck-server.lock
+
+function start() {
+    echo -n "Starting $PROG: "
+    if [ -s $PIDFILE ] && status -p $PIDFILE | grep -q running; then
+        echo -n "already running!"
+        warning && echo
+        exit 1
+    fi
+    nohup $HUCK_SERVER 2>&1 &>$LOGFILE &
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then
+        echo $! > $PIDFILE
+        touch $LOCKFILE
+        success && echo
+    else
+        failure && echo
+        exit 1
+    fi
+}
+
+stop() {
+    echo -n "Stopping $PROG: "
+    killproc -p $PIDFILE $PROG
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+    return $RETVAL
+}
+
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status -p $PIDFILE $PROG
+        ;;
+    restart)
+        stop && start
+        ;;
+esac
