@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'huck'
+
+begin
+  case ARGV[0]
+  when 'run'
+    Huck.run
+  when 'serve'
+    Huck.serve
+  else
+    puts "Usage: huck <run|serve>"
+    exit 1
+  end
+rescue => e
+  puts "Error: #{e}"
+  exit 1
+end
+
+exit 0

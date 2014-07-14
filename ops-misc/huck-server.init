@@ -4,7 +4,7 @@
 . /etc/init.d/functions
 
 PROG=huck-server
-HUCK_SERVER=/usr/bin/huck-server
+HUCK=/usr/bin/huck
 PIDFILE=/var/run/huck-server.pid
 LOGFILE=/var/log/huck-server.log
 LOCKFILE=/var/lock/subsys/huck-server.lock
@@ -16,7 +16,7 @@ function start() {
         warning && echo
         exit 1
     fi
-    nohup $HUCK_SERVER 2>&1 &>$LOGFILE &
+    nohup $HUCK serve 2>&1 &>$LOGFILE &
     RETVAL=$?
     if [ $RETVAL -eq 0 ]; then
         echo $! > $PIDFILE
