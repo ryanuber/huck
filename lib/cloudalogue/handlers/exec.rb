@@ -25,7 +25,8 @@ module Cloudalogue
         end
       end
 
-      # Handle an individual message
+      # Handle an individual message by running an executable, passing in the
+      # gathered data via stdin.
       def handle msg
         config = Cloudalogue::config
         verify_config config
