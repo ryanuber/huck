@@ -21,15 +21,24 @@ module Cloudalogue
   #
   def self.run kwargs = {}
     config = Cloudalogue::config
-    if config.has_key? 'submitter'
-      gen_name = config['submitter']
+    if config.has_key? 'generator'
+      gen_name = config['generator']
     end
 
     gen_arg = Cloudalogue::getarg kwargs, :generator, nil
     gen_name = gen_arg if !gen_arg.nil?
 
     g = Generator::factory gen_name
-    g.dump
+
+    if config.has_key? 'submitter'
+      subm_name = config['submitter']
+    end
+
+    subm_arg = Cloudalogue::getarg kwargs, :submitter, nil
+    subm_name = subm_arg if !subm_arg.nil?
+
+    s = Submitter::factory subm_name
+    s.submit g.dump
   end
 
   # Main method to receive messages from a Cloudalogue client
