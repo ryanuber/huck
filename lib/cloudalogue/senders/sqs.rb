@@ -1,11 +1,11 @@
 module Cloudalogue
 
-  module Submitters
+  module Senders
 
-    # A submitter that talks to Amazon Simple Queue Service
-    class SQSSubmitter < Submitter
+    # A sender that talks to Amazon Simple Queue Service
+    class SQSSender < Sender
 
-      # Includes all required modules for the SQS submitter
+      # Includes all required modules for the SQS sender
       def initialize
         require 'aws-sdk'
       end
@@ -19,23 +19,23 @@ module Cloudalogue
       #
       def verify_config config
         if !config.has_key? 'sqs'
-          raise RuntimeError, 'missing sqs config'
+          raise RuntimeError, 'missing sqs sender config'
         end
         ['access_key_id', 'secret_access_key', 'region',
          'queue_name'].each do |key|
           if !config['sqs'].has_key? key
-            raise RuntimeError, "missing sqs config: #{key}"
+            raise RuntimeError, "missing sqs sender config: #{key}"
           end
         end
       end
 
-      # Submit an arbitrary text message to the queue for processing
+      # Send an arbitrary text message to the queue for processing
       #
       # == Parameters:
       # msg::
       #   The arbitrary text data to send
       #
-      def submit msg
+      def send msg
         config = Cloudalogue::config
         verify_config config
 

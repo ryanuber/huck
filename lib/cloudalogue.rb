@@ -6,8 +6,8 @@ require 'cloudalogue/util'
 require 'cloudalogue/generator'
 require 'cloudalogue/generators/facter'
 require 'cloudalogue/generators/ohai'
-require 'cloudalogue/submitter'
-require 'cloudalogue/submitters/sqs'
+require 'cloudalogue/sender'
+require 'cloudalogue/senders/sqs'
 require 'cloudalogue/receiver'
 require 'cloudalogue/receivers/sqs'
 require 'cloudalogue/handler'
@@ -32,15 +32,15 @@ module Cloudalogue
 
     g = Generator::factory gen_name
 
-    if config.has_key? 'submitter'
-      subm_name = config['submitter']
+    if config.has_key? 'sender'
+      send_name = config['sender']
     end
 
-    subm_arg = Cloudalogue::getarg kwargs, :submitter, nil
-    subm_name = subm_arg if !subm_arg.nil?
+    send_arg = Cloudalogue::getarg kwargs, :sender, nil
+    send_name = send_arg if !send_arg.nil?
 
-    s = Submitter::factory subm_name
-    s.submit g.dump
+    s = Sender::factory send_name
+    s.send g.dump
   end
 
   # Main method to receive messages from a Cloudalogue client
