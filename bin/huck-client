@@ -1,3 +1,11 @@
 #!/usr/bin/env ruby
 require 'huck'
-Huck.run
+
+begin
+  Huck.run
+rescue Exception => e
+  puts "Error: #{e}"
+  exit 1
+end
+
+exit 0
