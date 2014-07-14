@@ -46,9 +46,7 @@ module Cloudalogue
         gen = Generators::FacterGenerator.new
       when 'ohai'
         gen = Generators::OhaiGenerator.new
-      end
-
-      if !defined? gen
+      else
         raise RuntimeError, "bad generator: #{name}"
       end
 

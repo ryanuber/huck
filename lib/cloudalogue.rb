@@ -14,14 +14,39 @@ require 'cloudalogue/receivers/sqs'
 module Cloudalogue
 
   # Main method to run Cloudalogue and dump info
+  #
+  # == Parameters:
+  # generator::
+  #   The name of the generator to use (default=facter)
+  #
   def self.run kwargs = {}
-    gen_name = Cloudalogue::getarg kwargs, :generator, nil
+    config = Cloudalogue::config
+    if config.has_key? 'submitter'
+      gen_name = config['submitter']
+    end
+
+    gen_arg = Cloudalogue::getarg kwargs, :generator, nil
+    gen_name = gen_arg if !gen_arg.nil?
+
     g = Generator::factory gen_name
     g.dump
   end
 
+  # Main method to receive messages from a Cloudalogue client
+  #
+  # == Parameters:
+  # receiver::
+  #   The receiver to use (default=sqs)
+  #
   def self.serve kwargs = {}
-    recv_name = Cloudalogue::getarg kwargs, :receiver, nil
+    config = Cloudalogue::config
+    if config.has_key? 'receiver'
+      recv_name = config['receiver']
+    end
+
+    recv_arg = Cloudalogue::getarg kwargs, :receiver, nil
+    recv_name = recv_arg if !recv_arg.nil?
+
     r = Receiver::factory recv_name
     r.receive do |msg|
       puts msg

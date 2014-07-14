@@ -24,9 +24,7 @@ module Cloudalogue
       case name
       when 'sqs'
         recv = Receivers::SQSReceiver.new
-      end
-
-      if !defined? recv
+      else
         raise RuntimeError, "bad receiver: #{name}"
       end
 
