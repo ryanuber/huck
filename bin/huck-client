@@ -3,7 +3,7 @@ require 'huck'
 
 begin
   Huck.run
-rescue Exception => e
+rescue => e
   puts "Error: #{e}"
   exit 1
 end
