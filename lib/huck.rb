@@ -22,8 +22,12 @@ module Huck
   # Main method to run Huck and dump info
   #
   # == Parameters:
+  # config::
+  #   Configuration file path
   # generator::
-  #   The name of the generator to use (default=facter)
+  #   The name of the generator to use
+  # sender::
+  #   The name of the sender to use
   #
   def self.run kwargs = {}
     conf_file = Huck::getarg kwargs, :config, nil

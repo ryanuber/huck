@@ -7,7 +7,7 @@ module Huck
 
       # Includes all required modules for the SQS sender
       def initialize
-        require 'aws-sdk'
+        Huck::must_load 'aws-sdk'
       end
 
       # Ensures that configuration is set properly before trying to use the
@@ -28,7 +28,7 @@ module Huck
       #
       # == Parameters:
       # msg::
-      #   The arbitrary text data to send
+      #   The message to process
       #
       def send msg
         verify_config

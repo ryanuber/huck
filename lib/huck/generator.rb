@@ -6,6 +6,14 @@ module Huck
 
     # This method will call the generation method, and return the data in the
     # desired format.
+    #
+    # == Parameters:
+    # format::
+    #   The serialization format (json or yaml)
+    #
+    # == Returns:
+    # A string of serialized text
+    #
     def dump kwargs = {}
       format = Huck::getarg kwargs, :format, 'json'
       data = generate

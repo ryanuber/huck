@@ -7,7 +7,7 @@ module Huck
 
       # Load required modules for yaml generator
       def initialize
-        require 'yaml'
+        Huck::must_load 'yaml'
       end
 
       # Ensure that all YAML config items are properly set
@@ -24,6 +24,7 @@ module Huck
       #
       # == Returns:
       # A hash of facts read from the YAML file
+      #
       def generate
         verify_config
         YAML.load_file @config['yaml']['file']

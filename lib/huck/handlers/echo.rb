@@ -6,6 +6,11 @@ module Huck
     class EchoHandler < Handler
 
       # Handles a message by printing it
+      #
+      # == Parameters:
+      # msg::
+      #   The message to process
+      #
       def handle msg
         puts msg
       end

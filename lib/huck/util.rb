@@ -50,4 +50,18 @@ module Huck
     true
   end
 
+  # Try to load a module, and raise a RuntimeError if it is not
+  # loadable. This is useful for trying to load certain provider
+  # code at runtime without dealing with LoadError.
+  #
+  # == Parameters:
+  # name::
+  #   The name of the module
+  #
+  def self.must_load name
+    if !self.try_load name
+      raise RuntimeError, "unable to load #{name}"
+    end
+  end
+
 end

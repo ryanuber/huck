@@ -7,13 +7,14 @@ module Huck
 
       # Include required modules
       def initialize
-        require 'socket'
+        Huck::must_load 'socket'
       end
 
-      # Reads in a configured JSON file and returns the data
+      # Generates bare minimum useful information
       #
       # == Returns:
-      # A hash of facts read from the JSON file
+      # A hash of host information
+      #
       def generate
         {'hostname' => Socket.gethostname,
          'platform' => RUBY_PLATFORM}

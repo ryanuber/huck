@@ -8,7 +8,7 @@ module Huck
 
       # Includes all required modules
       def initialize
-        require 'open3'
+        Huck::must_load 'open3'
       end
 
       # Ensures that configuration is set properly before executing
@@ -23,6 +23,11 @@ module Huck
 
       # Handle an individual message by running an executable, passing in the
       # gathered data via stdin.
+      #
+      # == Parameters:
+      # msg::
+      #   The message to process
+      #
       def handle msg
         verify_config
 

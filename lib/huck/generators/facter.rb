@@ -7,13 +7,14 @@ module Huck
 
       # Load required modules for facter generator
       def initialize
-        require 'facter'
+        Huck::must_load 'facter'
       end
 
-      # This method generates the data and returns it as a hash
+      # Generate data using facter
       #
       # == Returns:
       # A hash of facts as returned by facter
+      #
       def generate
         Facter.to_hash
       end

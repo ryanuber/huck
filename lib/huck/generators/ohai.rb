@@ -7,13 +7,14 @@ module Huck
 
       # Load required modules for ohai generator
       def initialize
-        require 'ohai/system'
+        Huck::must_load 'ohai/system'
       end
 
-      # This method generates the data and returns it as a hash
+      # Generate data using ohai
       #
       # == Returns
       # A hash of hints as returned by ohai
+      #
       def generate
         ohai = Ohai::System.new
         ohai.all_plugins

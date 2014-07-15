@@ -7,7 +7,7 @@ module Huck
 
       # Includes all required modules for the SQS receiver
       def initialize
-        require 'aws-sdk'
+        Huck::must_load 'aws-sdk'
       end
 
       # Ensures that configuration is set properly before trying to use the
