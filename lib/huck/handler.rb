@@ -2,27 +2,34 @@ module Huck
 
   # Base handler class
   class Handler
+    attr_accessor :config
 
     # Given a handler's name (or no name), return a new handler instance
     #
     # == Parameters:
     # name::
     #   The name of the handler, or nil to guess
+    # config::
+    #   A configuration hash
     #
     # == Returns:
     # A Huck::Handler instance
     #
-    def self.factory name
+    def self.factory kwargs = {}
+      name = Huck::getarg kwargs, :name, nil
+      config = Huck::getarg kwargs, :config, nil
+
       name = 'exec' if name.nil?
 
       case name
       when 'exec'
-        hand = Handlers::ExecHandler.new
+        h = Handlers::ExecHandler.new
       else
         raise RuntimeError, "bad handler: #{name}"
       end
 
-      return hand
+      h.config = config
+      return h
     end
 
   end

@@ -2,6 +2,8 @@ module Huck
 
   class Generator
 
+    attr_accessor :config
+
     # This method will call the generation method, and return the data in the
     # desired format.
     def dump kwargs = {}
@@ -26,11 +28,16 @@ module Huck
     # == Parameters:
     # name::
     #   The name of the generator, or empty/nil to guess
+    # config::
+    #   A configuration hash
     #
     # == Returns:
     # A Huck::Generator instance
     #
-    def self.factory name
+    def self.factory kwargs = {}
+      name = Huck::getarg kwargs, :name, nil
+      config = Huck::getarg kwargs, :config, nil
+
       if name.nil?
         if Huck::try_load 'facter'
           name = 'facter'
@@ -43,14 +50,15 @@ module Huck
 
       case name
       when 'facter'
-        gen = Generators::FacterGenerator.new
+        g = Generators::FacterGenerator.new
       when 'ohai'
-        gen = Generators::OhaiGenerator.new
+        g = Generators::OhaiGenerator.new
       else
         raise RuntimeError, "bad generator: #{name}"
       end
 
-      return gen
+      g.config = config
+      return g
     end
 
   end

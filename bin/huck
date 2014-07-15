@@ -1,14 +1,27 @@
 #!/usr/bin/env ruby
+require 'optparse'
 require 'huck'
+
+options = Hash.new
+OptionParser.new do |opts|
+  opts.on '-c [path]' do |v|
+    options[:config] = v
+  end
+end.parse!
 
 begin
   case ARGV[0]
   when 'run'
-    Huck.run
+    Huck.run :config => options[:config]
   when 'serve'
-    Huck.serve
+    Huck.serve :config => options[:config]
   else
-    puts "Usage: huck <run|serve>"
+    puts <<EOF
+Usage: huck <run|serve>
+
+Options:
+  -c  The path to a configuration file
+EOF
     exit 1
   end
 rescue => e

@@ -27,7 +27,8 @@ module Huck
   # A hash containing the configuration
   #
   def self.config kwargs = {}
-    path = self.getarg kwargs, 'path', '/etc/huck.conf'
+    path = self.getarg kwargs, :path, nil
+    path = '/etc/huck.conf' if path.nil?
     YAML.load_file path
   end
 

@@ -12,18 +12,13 @@ module Huck
 
       # Ensures that configuration is set properly before trying to use the
       # connection data to talk to AWS
-      #
-      # == Parameters:
-      # config::
-      #   A hash of configuration data to verify
-      #
-      def verify_config config
-        if !config.has_key? 'sqs'
+      def verify_config
+        if !@config.has_key? 'sqs'
           raise RuntimeError, 'missing sqs sender config'
         end
         ['access_key_id', 'secret_access_key', 'region',
          'queue_name'].each do |key|
-          if !config['sqs'].has_key? key
+          if !@config['sqs'].has_key? key
             raise RuntimeError, "missing sqs sender config: #{key}"
           end
         end
@@ -36,16 +31,15 @@ module Huck
       #   The arbitrary text data to send
       #
       def send msg
-        config = Huck::config
-        verify_config config
+        verify_config
 
         sqs = AWS::SQS.new(
-          :access_key_id => config['sqs']['access_key_id'],
-          :secret_access_key => config['sqs']['secret_access_key'],
-          :region => config['sqs']['region']
+          :access_key_id => @config['sqs']['access_key_id'],
+          :secret_access_key => @config['sqs']['secret_access_key'],
+          :region => @config['sqs']['region']
         )
 
-        queue = sqs.queues.create config['sqs']['queue_name']
+        queue = sqs.queues.create @config['sqs']['queue_name']
         queue.send_message msg
       end
 
