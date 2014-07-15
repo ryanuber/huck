@@ -21,6 +21,7 @@ Usage: huck <run|serve>
 
 Options:
   -c  The path to a configuration file
+      Defaults to /etc/huck.conf
 EOF
     exit 1
   end
