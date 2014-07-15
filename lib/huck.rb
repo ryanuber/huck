@@ -89,7 +89,7 @@ module Huck
       r.receive do |msg|
         block_given? ? yield(msg) : h.handle(msg)
       end
-    rescue Interrupt, SystemExit, IRB::Abort
+    rescue Interrupt, SystemExit
       return
     end
   end
