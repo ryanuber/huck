@@ -8,7 +8,7 @@
 #receiver: sqs
 #handler: echo
 
-# Optional configuration follows, although not all of it may be emitted.
+# Provider-specific configurations follow
 
 # SQS configuration. This will be used by the SQS sender and receiver.
 #sqs:
@@ -19,6 +19,7 @@
 
 # Exec handler configuration. This configures a command to run when
 # a new Huck message is received by the server. In this example, the
-# content is simply fed into a file.
+# content is simply fed into a file. Be sure to set the 'handler' to
+# 'exec' (above) if you wish for this handler to run.
 #exec:
 #  command: cat > /tmp/huck-in.txt
