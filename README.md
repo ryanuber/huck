@@ -1,7 +1,7 @@
 # Huck
 
-Huck is a small, cross-platform Ruby application to make sharing information in
-a cluster easy.
+Huck is a small, cross-platform Ruby application to make sharing information
+about hosts, applications, or anything else easy between machines on a network.
 
 Huck's current intended functionality is:
 
@@ -18,6 +18,11 @@ Extensibility is a major design goal in Huck. If you can generate some hash data
 in ruby, you can make a new Huck data generator. If you can connect to a
 different queueing service, you can make a new data sender/receiver, and if you
 have a function that handles a string argument, you can make a new handler.
+
+# Installing
+```
+$ gem install huck
+```
 
 # Using
 
