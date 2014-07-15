@@ -6,15 +6,15 @@ begin
   options = Hash.new
   OptionParser.new do |opts|
     opts.on '-c [path]' do |v|
-      options[:config] = v
+      options[:config_file] = v
     end
   end.parse!
 
   case ARGV[0]
   when 'run'
-    Huck.run :config => options[:config]
+    Huck.run :config_file => options[:config_file]
   when 'serve'
-    Huck.serve :config => options[:config]
+    Huck.serve :config_file => options[:config_file]
   else
     puts <<EOF
 Usage: huck <run|serve>

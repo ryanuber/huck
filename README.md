@@ -105,8 +105,9 @@ You can select a specific sender or generator.
 Huck.run :sender => 'sqs', :generator => 'ohai'
 ```
 
-Both `serve` and `run` will also accept a `:config` option to specify the
-config path.
+Both `serve` and `run` will accept a `:config_file` option to specify the
+config path. It is also possible to pass the configuration in as a hash using
+the `:config` option.
 
 # Roadmap
 

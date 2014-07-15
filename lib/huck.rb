@@ -30,8 +30,11 @@ module Huck
   #   The name of the sender to use
   #
   def self.run kwargs = {}
-    conf_file = Huck::getarg kwargs, :config, nil
-    config = Huck::config :path => conf_file
+    config = Huck::getarg kwargs, :config, nil
+    if config.nil?
+      conf_file = Huck::getarg kwargs, :config_file, nil
+      config = Huck::config :path => conf_file
+    end
 
     if config.has_key? 'generator'
       gen_name = config['generator']
@@ -59,8 +62,11 @@ module Huck
   #   The receiver to use (default=sqs)
   #
   def self.serve kwargs = {}
-    conf_file = Huck::getarg kwargs, :config, nil
-    config = Huck::config :path => conf_file
+    config = Huck::getarg kwargs, :config, nil
+    if config.nil?
+      conf_file = Huck::getarg kwargs, :config_file, nil
+      config = Huck::config :path => conf_file
+    end
 
     if config.has_key? 'handler'
       hand_name = config['handler']
