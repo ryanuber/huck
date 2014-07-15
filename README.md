@@ -107,7 +107,9 @@ Huck.run :sender => 'sqs', :generator => 'ohai'
 
 Both `serve` and `run` will accept a `:config_file` option to specify the
 config path. It is also possible to pass the configuration in as a hash using
-the `:config` option.
+the `:config` option. Passed config (such as `:handler`, `:generator`, etc.)
+always takes precedence over the config hash or config file. This allows one to
+load a config file for credentials, and specify the other options on the fly.
 
 # Roadmap
 
