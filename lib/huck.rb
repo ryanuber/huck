@@ -13,6 +13,7 @@ require 'huck/senders/sqs'
 require 'huck/receiver'
 require 'huck/receivers/sqs'
 require 'huck/handler'
+require 'huck/handlers/echo'
 require 'huck/handlers/exec'
 
 module Huck
@@ -68,8 +69,12 @@ module Huck
     recv_name = recv_arg if !recv_arg.nil?
     r = Receiver::factory :name => recv_name, :config => config
 
-    r.receive do |msg|
-      h.handle msg
+    begin
+      r.receive do |msg|
+        h.handle msg
+      end
+    rescue Interrupt, SystemExit
+      return
     end
   end
 

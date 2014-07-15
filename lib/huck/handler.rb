@@ -19,9 +19,11 @@ module Huck
       name = Huck::getarg kwargs, :name, nil
       config = Huck::getarg kwargs, :config, nil
 
-      name = 'exec' if name.nil?
+      name = 'echo' if name.nil?
 
       case name
+      when 'echo'
+        h = Handlers::EchoHandler.new
       when 'exec'
         h = Handlers::ExecHandler.new
       else
