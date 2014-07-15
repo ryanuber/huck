@@ -64,7 +64,7 @@ module Huck
     end
   end
 
-  # Serialize a hash to a desired format.
+  # Serialize data to a desired format.
   #
   # == Parameters:
   # format::
@@ -73,12 +73,8 @@ module Huck
   # == Returns:
   # A string of serialized text
   #
-  def self.serialize_hash data, kwargs = {}
+  def self.serialize data, kwargs = {}
     format = Huck::getarg kwargs, :format, 'json'
-    if !data.is_a? Hash
-      raise RuntimeError, 'cannot serialize non-hash data'
-    end
-
     case format
     when 'json'
       return JSON.dump data

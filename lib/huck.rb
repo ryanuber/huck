@@ -20,9 +20,8 @@ require 'huck/handlers/exec'
 module Huck
 
   # Main method to run Huck and dump info. If a block is given, the block will
-  # be used as the generator code. Generator code must return a hash, anything
-  # else will cause a RuntimeException. If no block is passed, then the
-  # configured generator will be invoked instead.
+  # be used as the generator code. If no block is passed, then the configured
+  # generator will be invoked instead.
   #
   # == Parameters:
   # config::
@@ -54,7 +53,7 @@ module Huck
     s = Sender::factory :name => send_name, :config => config
 
     data = block_given? ? yield : g.generate
-    s.send Huck::serialize_hash data
+    s.send Huck::serialize data
   end
 
   # Main method to receive messages from a Huck client. If a block is given, the
