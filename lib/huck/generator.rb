@@ -27,7 +27,7 @@ module Huck
     #
     # == Parameters:
     # name::
-    #   The name of the generator, or empty/nil to guess
+    #   The name of the generator
     # config::
     #   A configuration hash
     #
