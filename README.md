@@ -34,6 +34,9 @@ Run the client once:
 $ huck run
 ```
 
+Take a look at the [config example](huck.conf.sample) to get an idea of how to
+configure Huck for your environment.
+
 If you don't want to put your config in `~/huck.conf` (the default), you may
 pass the `-c` command-line option to both the client and server to specify a
 different place.
