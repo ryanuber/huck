@@ -100,6 +100,14 @@ The client can also be used from the library easily.
 Huck.run
 ```
 
+The `run` method can accept a block, very similar to the `serve` method. Note
+that the block must return a `Hash`.
+```ruby
+Huck.run do
+  {"message": "This is a test message"}
+end
+```
+
 You can select a specific sender or generator.
 ```ruby
 Huck.run :sender => 'sqs', :generator => 'ohai'

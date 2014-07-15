@@ -64,4 +64,29 @@ module Huck
     end
   end
 
+  # Serialize a hash to a desired format.
+  #
+  # == Parameters:
+  # format::
+  #   The serialization format (json or yaml)
+  #
+  # == Returns:
+  # A string of serialized text
+  #
+  def self.serialize_hash data, kwargs = {}
+    format = Huck::getarg kwargs, :format, 'json'
+    if !data.is_a? Hash
+      raise RuntimeError, 'cannot serialize non-hash data'
+    end
+
+    case format
+    when 'json'
+      return JSON.dump data
+    when 'yaml'
+      return YAML.dump data
+    else
+      raise RuntimeError, "unknown format '#{format}'"
+    end
+  end
+
 end
