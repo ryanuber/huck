@@ -48,6 +48,7 @@ passes data in via stdin, and satisfies most use cases for Huck.
 
 # Installing
 ```
+$ gem install aws-sdk  # currently only sqs supported
 $ gem install huck
 ```
 
