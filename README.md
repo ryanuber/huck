@@ -48,4 +48,4 @@ different place.
 
 # Acknowledgements
 
-Concept and prototypes brewed with @xorl
+Concept and prototypes brewed with [@xorl](https://github.com/xorl)
