@@ -79,6 +79,35 @@ If you don't want to put your config in `~/huck.conf` (the default), you may
 pass the `-c` command-line option to both the client and server to specify a
 different place.
 
+## As a library
+
+You may wish to use Huck as a library instead of using its CLI. While using Huck
+as a library, it is possible to pass arbitrary code blocks to use as message
+handlers. This looks something like:
+```ruby
+Huck.serve do |msg|
+  puts msg
+end
+```
+
+If you want to select a receiver or handler, you can do so.
+```ruby
+Huck.serve :receiver => 'sqs', :handler => 'echo'
+```
+
+The client can also be used from the library easily.
+```ruby
+Huck.run
+```
+
+You can select a specific sender or generator.
+```ruby
+Huck.run :sender => 'sqs', :generator => 'ohai'
+```
+
+Both `serve` and `run` will also accept a `:config` option to specify the
+config path.
+
 # Roadmap
 
 * RabbitMQ support
