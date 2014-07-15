@@ -1,11 +1,17 @@
-# Example configuration file for Huck
+### Client configuration items
 
-# Client configuration items
-#generator: facter
+# Available generators: basic, facter, ohai, json, yaml
+#generator: basic
+
+# Available senders: sqs
 #sender: sqs
 
-# Server configuration items
+### Server configuration items
+
+# Available receivers: sqs
 #receiver: sqs
+
+# Available handlers: echo, exec
 #handler: echo
 
 # Provider-specific configurations follow

@@ -38,17 +38,11 @@ module Huck
       name = Huck::getarg kwargs, :name, nil
       config = Huck::getarg kwargs, :config, nil
 
-      if name.nil?
-        if Huck::try_load 'facter'
-          name = 'facter'
-        elsif Huck::try_load 'ohai'
-          name = 'ohai'
-        else
-          raise RuntimeError, 'unable to load any generators'
-        end
-      end
+      name = 'basic' if name.nil?
 
       case name
+      when 'basic'
+        g = Generators::BasicGenerator.new
       when 'facter'
         g = Generators::FacterGenerator.new
       when 'ohai'

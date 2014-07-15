@@ -24,6 +24,11 @@ have a function that handles a string argument, you can make a new handler.
 $ gem install huck
 ```
 
+**NOTE**
+If you want to use Ohai or Facter, you should install those gems as well. Huck
+does not depend on them to avoid installing both on every machine, and uses a
+very basic host info generator by default.
+
 # Using
 
 This gem ships with a command-line interface to make things easy. You can run
