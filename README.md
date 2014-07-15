@@ -45,3 +45,7 @@ different place.
 
 * RabbitMQ support
 * Support multiple handlers per message
+
+# Acknowledgements
+
+Concept and prototypes brewed with @xorl
