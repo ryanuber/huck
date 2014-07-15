@@ -50,7 +50,9 @@ module Huck
     s.send g.dump
   end
 
-  # Main method to receive messages from a Huck client
+  # Main method to receive messages from a Huck client. If a block is given, the
+  # block will be used as the handler code. Otherwise, the configured handler
+  # or default handler will be used.
   #
   # == Parameters:
   # receiver::
@@ -76,9 +78,9 @@ module Huck
 
     begin
       r.receive do |msg|
-        h.handle msg
+        block_given? ? yield(msg) : h.handle(msg)
       end
-    rescue Interrupt, SystemExit
+    rescue Interrupt, SystemExit, IRB::Abort
       return
     end
   end
