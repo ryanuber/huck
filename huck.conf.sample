@@ -1,23 +1,24 @@
 # Example configuration file for Huck
 
-# Core configuration. This may be omitted to use the defaults. Only a
-# generator and a sender is required for a client, and only a receiver
-# is required for the server.
-generator: facter
-receiver: sqs
-sender: sqs
+# Client configuration items
+#generator: facter
+#sender: sqs
+
+# Server configuration items
+#receiver: sqs
+#handler: echo
 
 # Optional configuration follows, although not all of it may be emitted.
 
 # SQS configuration. This will be used by the SQS sender and receiver.
-sqs:
-  access_key_id: <access_key_id_here>
-  secret_access_key: <secret_access_key_here>
-  region: us-west-2
-  queue_name: discover
+#sqs:
+#  access_key_id: <access_key_id_here>
+#  secret_access_key: <secret_access_key_here>
+#  region: us-west-2
+#  queue_name: discover
 
 # Exec handler configuration. This configures a command to run when
 # a new Huck message is received by the server. In this example, the
 # content is simply fed into a file.
-exec:
-  command: cat > /tmp/huck-in.txt
+#exec:
+#  command: cat > /tmp/huck-in.txt
