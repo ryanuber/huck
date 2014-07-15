@@ -8,3 +8,10 @@ SimpleCov.start do
 end
 
 require 'huck'
+
+def mktempfile content
+  f = Tempfile.new 'huck'
+  f.write content
+  f.close
+  f.path
+end
