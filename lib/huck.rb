@@ -73,7 +73,7 @@ module Huck
   # config::
   #   Configuration hash to use in place of a config file
   #
-  def self.serve kwargs = {}
+  def self.serve kwargs = {}, &block
     config = Huck::getarg kwargs, :config, nil
     if config.nil?
       conf_file = Huck::getarg kwargs, :config_file, nil
@@ -93,29 +93,9 @@ module Huck
     end
     recv_arg = Huck::getarg kwargs, :receiver, nil
     recv_name = recv_arg if !recv_arg.nil?
-    r = Receiver::factory :name => recv_name, :config => config
+    receiver = Receiver::factory :name => recv_name, :config => config
 
-    # Receive messages and pass them down to the handlers
-    begin
-      r.receive do |msg|
-        begin
-          if block_given?
-            hname = '<block>'
-            yield msg
-            next # skip other handlers
-          end
-
-          handlers.each do |h|
-            hname = h.class.to_s
-            h.handle msg
-          end
-        rescue => e
-          puts "Handler error (#{hname}): #{e.message}"
-        end
-      end
-    rescue Interrupt, SystemExit
-      return
-    end
+    receiver.accept handlers, block
   end
 
 end

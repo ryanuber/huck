@@ -34,5 +34,37 @@ module Huck
       return r
     end
 
+    # Given some handlers (or a block), grab messages out of the
+    # queue and feed them through to the handlers.
+    #
+    # == Parameters:
+    # handlers::
+    #   An array of Huck::Handler instances
+    # block::
+    #   A code block, or nil
+    #
+    def accept handlers, block
+      begin
+        receive do |msg|
+          begin
+            if block
+              hname = '<block>'
+              block.call msg
+              next # skip other handlers
+            end
+
+            handlers.each do |h|
+              hname = h.class.to_s
+              h.handle msg
+            end
+          rescue => e
+            puts "Handler error (#{hname}): #{e.message}"
+          end
+        end
+      rescue Interrupt, SystemExit
+        return
+      end
+    end
+
   end
 end
