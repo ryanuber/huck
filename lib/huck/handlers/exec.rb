@@ -28,7 +28,7 @@ module Huck
       def handle msg
         verify_config
 
-        Open3.popen2 @config['command'] do |stdin, stdout, thread|
+        Open3.popen2 @config['command'] do |stdin, _, _|
           stdin.print msg
         end
       end
