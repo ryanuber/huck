@@ -23,7 +23,7 @@ receiver: sqs
 # Configure handlers. Having multiple handlers configured will cause
 # huck to run each of them every time a message is received.
 handlers:
-  - echo: {}
+  - echo
 #  - exec: { command: cat >> /tmp/huck-messages.txt }
 
 # SQS configuration. This will be used by the SQS sender and receiver.

@@ -16,8 +16,9 @@ module Huck
       # A hash of host information
       #
       def generate
-        {'hostname' => Socket.gethostname,
-         'platform' => RUBY_PLATFORM}
+        data = {'hostname' => Socket.gethostname,
+                'platform' => RUBY_PLATFORM}
+        Huck::serialize data, :format => @config['format']
       end
 
     end

@@ -13,11 +13,8 @@ module Huck
 
       # Ensures that configuration is set properly before executing
       def verify_config
-        if !@config.has_key? 'exec'
-          raise RuntimeError, 'missing exec config'
-        end
-        if !@config['exec'].has_key? 'command'
-          raise RuntimeError, 'missing exec config: command'
+        if !@config.has_key? 'command'
+          raise RuntimeError, 'missing "exec" generator config: "command"'
         end
       end
 
@@ -31,7 +28,7 @@ module Huck
       def handle msg
         verify_config
 
-        Open3.popen2 @config['exec']['command'] do |stdin, stdout, thread|
+        Open3.popen2 @config['command'] do |stdin, stdout, thread|
           stdin.print msg
         end
       end
