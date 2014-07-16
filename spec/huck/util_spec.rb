@@ -34,4 +34,19 @@ describe 'Module Loading' do
   it 'should raise a RuntimeError when module cannot be loaded' do
     expect{Huck::must_load 'nonexistent'}.to raise_error(RuntimeError)
   end
+
+end
+
+describe 'Data Serialization' do
+  input = {'a' => 'b'}
+
+  it 'should serialize to json' do
+    output = JSON.dump input
+    expect(Huck::serialize(input, :format => 'json')).to eq(output)
+  end
+
+  it 'should serialize to yaml' do
+    output = YAML.dump input
+    expect(Huck::serialize(input, :format => 'yaml')).to eq(output)
+  end
 end
