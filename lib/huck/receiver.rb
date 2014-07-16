@@ -19,17 +19,13 @@ module Huck
       name = Huck::getarg kwargs, :name, nil
       config = Huck::getarg kwargs, :config, nil
 
-      if name.nil?
-        if Huck::try_load 'aws-sdk'
-          name = 'sqs'
-        else
-          raise RuntimeError, 'unable to load any receivers'
-        end
-      end
+      name = 'sqs' if name.nil?
 
       case name
       when 'sqs'
         r = Receivers::SQSReceiver.new
+      when 'rabbitmq'
+        r = Receivers::RabbitMQReceiver.new
       else
         raise RuntimeError, "bad receiver: #{name}"
       end

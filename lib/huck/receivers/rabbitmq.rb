@@ -29,7 +29,7 @@ module Huck
         options = Hash.new
         [:host, :port, :user, :pass, :vhost].each do |arg|
           if @config['rabbitmq'].has_key? arg.to_s
-            options[arg] = @config[arg.to_s]
+            options[arg] = @config['rabbitmq'][arg.to_s]
           end
         end
 
