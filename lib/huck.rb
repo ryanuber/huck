@@ -56,6 +56,9 @@ module Huck
     # Execute the generators and send their output
     generators.each do |g|
       data = block_given? ? yield : g.generate
+      if !data.kind_of? String
+        raise RuntimeError, "generator produced non-string result: #{data.class}"
+      end
       s.send data
     end
   end
