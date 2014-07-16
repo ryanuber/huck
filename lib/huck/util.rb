@@ -74,7 +74,9 @@ module Huck
   # A string of serialized text
   #
   def self.serialize data, kwargs = {}
-    format = Huck::getarg kwargs, :format, 'json'
+    format = Huck::getarg kwargs, :format, nil
+    format = 'json' if format.nil?
+
     case format
     when 'json'
       return JSON.dump data
@@ -85,11 +87,21 @@ module Huck
     end
   end
 
+  # Parses a list of provider data for generators or handlers. This allows
+  # each provider to have its own config, and if no config is required, to
+  # simply pass the name of the provider. It also allows multiples of the
+  # same provider type to be configured and run.
+  #
+  # == Parameters:
+  # data::
+  #   The configuration data to parse
+  #
   def self.parse_providers data
     if !data.kind_of? Array
       raise RuntimeError, "expected array, got: #{data}"
     end
     data.each do |provider|
+      config = Hash.new
       if provider.kind_of? Hash
         name = provider.keys[0]
         config = provider.values[0]
