@@ -19,17 +19,13 @@ module Huck
       name = Huck::getarg kwargs, :name, nil
       config = Huck::getarg kwargs, :config, nil
 
-      if name.nil?
-        if Huck::try_load 'aws-sdk'
-          name = 'sqs'
-        else
-          raise RuntimeError, 'unable to load any senders'
-        end
-      end
+      name = 'sqs' if name.nil?
 
       case name
       when 'sqs'
         s = Senders::SQSSender.new
+      when 'rabbitmq'
+        s = Senders::RabbitMQSender.new
       else
         raise RuntimeError, "bad sender: #{name}"
       end

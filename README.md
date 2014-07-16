@@ -29,14 +29,16 @@ platform information.
 ### Senders
 
 These run on clients and submit generated data into a queue. They use a generic
-interface so that more messaging systems may be added on later. Currently only
-[Amazon SQS](http://aws.amazon.com/sqs/) is supported.
+interface so that more messaging systems may be added on later. Currently
+[Amazon SQS](http://aws.amazon.com/sqs/) (default) and
+[RabbitMQ](http://www.rabbitmq.com) are supported.
 
 ### Receivers
 
 These poll messages out from a queue for processing, and also use a generic
-interface to support more messaging systems. Currently only
-[Amazon SQS](http://aws.amazon.com/sqs/) is supported.
+interface to support more messaging systems. Currently
+[Amazon SQS](http://aws.amazon.com/sqs/) (default) and
+[RabbitMQ](http://www.rabbitmq.com) are supported.
 
 ### Handlers
 
@@ -48,8 +50,9 @@ passes data in via stdin, and satisfies most use cases for Huck.
 
 # Installing
 ```
-$ gem install aws-sdk  # currently only sqs supported
 $ gem install huck
+$ gem install aws-sdk  # if you want to use SQS
+$ gem install bunny    # if you want to use RabbitMQ
 ```
 
 **NOTE**
