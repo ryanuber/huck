@@ -3,12 +3,12 @@
 # Available generators: basic, facter, ohai, json, yaml
 #generator: basic
 
-# Available senders: sqs
+# Available senders: sqs, rabbitmq
 #sender: sqs
 
 ### Server configuration items
 
-# Available receivers: sqs
+# Available receivers: sqs, rabbitmq
 #receiver: sqs
 
 # Available handlers: echo, exec
@@ -20,8 +20,18 @@
 #sqs:
 #  access_key_id: <access_key_id_here>
 #  secret_access_key: <secret_access_key_here>
-#  region: us-west-2
-#  queue_name: discover
+#  region: <your_region>
+#  queue_name: <your_queue>
+
+# RabbitMQ configuration. This will be used by the RabbitMQ sender/receiver.
+# The only required configuration here is the queue_name.
+#rabbitmq:
+#  host: localhost
+#  port: 5672
+#  user: <user>
+#  pass: <pass>
+#  vhost: <vhost>
+#  queue_name: <queue>
 
 # Exec handler configuration. This configures a command to run when
 # a new Huck message is received by the server. In this example, the
