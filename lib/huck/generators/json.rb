@@ -12,11 +12,8 @@ module Huck
 
       # Ensure that all JSON config items are properly set
       def verify_config
-        if !@config.has_key? 'json'
-          raise RuntimeError, 'missing json config'
-        end
-        if !@config['json'].has_key? 'file'
-          raise RuntimeError, 'missing json config: file'
+        if !@config.has_key? 'path'
+          raise RuntimeError, 'missing "json" generator config: "path"'
         end
       end
 
@@ -27,7 +24,7 @@ module Huck
       #
       def generate
         verify_config
-        JSON.load IO.read(@config['json']['file'])
+        JSON.load IO.read(@config['path'])
       end
 
     end

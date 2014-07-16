@@ -28,6 +28,8 @@ module Huck
         g = Generators::FacterGenerator.new
       when 'ohai'
         g = Generators::OhaiGenerator.new
+      when 'file'
+        g = Generators::FileGenerator.new
       when 'yaml'
         g = Generators::YamlGenerator.new
       when 'json'

@@ -7,6 +7,7 @@ require 'huck/generator'
 require 'huck/generators/basic'
 require 'huck/generators/facter'
 require 'huck/generators/ohai'
+require 'huck/generators/file'
 require 'huck/generators/yaml'
 require 'huck/generators/json'
 require 'huck/sender'
@@ -40,13 +41,6 @@ module Huck
       config = Huck::config :path => conf_file
     end
 
-    if config.has_key? 'generator'
-      gen_name = config['generator']
-    end
-    gen_arg = Huck::getarg kwargs, :generator, nil
-    gen_name = gen_arg if !gen_arg.nil?
-    g = Generator::factory :name => gen_name, :config => config
-
     if config.has_key? 'sender'
       send_name = config['sender']
     end
@@ -54,8 +48,18 @@ module Huck
     send_name = send_arg if !send_arg.nil?
     s = Sender::factory :name => send_name, :config => config
 
-    data = block_given? ? yield : g.generate
-    s.send Huck::serialize data
+    if config.has_key? 'generators'
+      gen_list = config['generators']
+    else
+      gen_list = {'basic' => nil}
+    end
+    gen_list.each do |gen_hash|
+      gen_name = gen_hash.keys[0]
+      gen_config = gen_hash.values[0]
+      g = Generator::factory :name => gen_name, :config => gen_config
+      data = block_given? ? yield : g.generate
+      s.send Huck::serialize data
+    end
   end
 
   # Main method to receive messages from a Huck client. If a block is given, the

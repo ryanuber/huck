@@ -12,11 +12,8 @@ module Huck
 
       # Ensure that all YAML config items are properly set
       def verify_config
-        if !@config.has_key? 'yaml'
-          raise RuntimeError, 'missing yaml config'
-        end
-        if !@config['yaml'].has_key? 'file'
-          raise RuntimeError, 'missing yaml config: file'
+        if !@config.has_key? 'path'
+          raise RuntimeError, 'missing "yaml" generator config: "path"'
         end
       end
 
@@ -27,7 +24,7 @@ module Huck
       #
       def generate
         verify_config
-        YAML.load_file @config['yaml']['file']
+        YAML.load_file @config['path']
       end
 
     end
