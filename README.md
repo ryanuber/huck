@@ -23,8 +23,8 @@ have a function that handles a string argument, you can make a new handler.
 
 These generate information on client machines to submit into a queue for a
 server machine to read. Huck ships with receivers for Ohai and Facter, as well
-as a few simple generators to read JSON or YAML files or collect hostname and
-platform information.
+as a few simple generators to read files, collect hostname and platform
+information, or execute arbitrary scripts.
 
 ### Senders
 
@@ -53,12 +53,13 @@ passes data in via stdin, and satisfies most use cases for Huck.
 $ gem install huck
 $ gem install aws-sdk  # if you want to use SQS
 $ gem install bunny    # if you want to use RabbitMQ
+$ gem install facter   # if you want to use Facter
+$ gem install ohai     # if you want to use Ohai
 ```
 
 **NOTE**
-If you want to use Ohai or Facter, you should install those gems as well. Huck
-does not depend on them to avoid installing both on every machine, and uses a
-very basic host info generator by default.
+Huck does not depend directly on provider-related gems to avoid installing them
+on every machine.
 
 # Using
 
@@ -84,18 +85,18 @@ different place.
 
 ## As a library
 
-You may wish to use Huck as a library instead of using its CLI. While using Huck
-as a library, it is possible to pass arbitrary code blocks to use as message
-handlers. This looks something like:
+You may wish to use Huck as a library instead of using its CLI. You can run the
+Huck server with the following code:
+```ruby
+Huck.serve
+```
+
+While using Huck as a library, it is possible to pass arbitrary code blocks to
+use as message handlers. This looks something like:
 ```ruby
 Huck.serve do |msg|
   puts msg
 end
-```
-
-If you want to select a receiver or handler, you can do so.
-```ruby
-Huck.serve :receiver => 'sqs', :handler => 'echo'
 ```
 
 The client can also be used from the library easily.
@@ -106,25 +107,13 @@ Huck.run
 The `run` method can accept a block, very similar to the `serve` method.
 ```ruby
 Huck.run do
-  {"message" => "This is a test message"}
+  "This is a test message"
 end
-```
-
-You can select a specific sender or generator.
-```ruby
-Huck.run :sender => 'sqs', :generator => 'ohai'
 ```
 
 Both `serve` and `run` will accept a `:config_file` option to specify the
 config path. It is also possible to pass the configuration in as a hash using
-the `:config` option. Passed config (such as `:handler`, `:generator`, etc.)
-always takes precedence over the config hash or config file. This allows one to
-load a config file for credentials, and specify the other options on the fly.
-
-# Roadmap
-
-* RabbitMQ support
-* Support multiple handlers per message
+the `:config` option.
 
 # Acknowledgements
 

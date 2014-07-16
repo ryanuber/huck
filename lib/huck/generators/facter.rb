@@ -16,7 +16,8 @@ module Huck
       # A hash of facts as returned by facter
       #
       def generate
-        Facter.to_hash
+        data = Facter.to_hash
+        Huck::serialize data, :format => @config['format']
       end
 
     end

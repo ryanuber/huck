@@ -85,4 +85,21 @@ module Huck
     end
   end
 
+  def self.parse_providers data
+    if !data.kind_of? Array
+      raise RuntimeError, "expected array, got: #{data}"
+    end
+    data.each do |provider|
+      if provider.kind_of? Hash
+        name = provider.keys[0]
+        config = provider.values[0]
+      elsif provider.kind_of? String
+        name = provider
+      else
+        raise RuntimeError, "expected hash, got: #{gen}"
+      end
+      yield name, config
+    end
+  end
+
 end

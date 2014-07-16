@@ -7,8 +7,8 @@ require 'huck/generator'
 require 'huck/generators/basic'
 require 'huck/generators/facter'
 require 'huck/generators/ohai'
-require 'huck/generators/yaml'
-require 'huck/generators/json'
+require 'huck/generators/file'
+require 'huck/generators/exec'
 require 'huck/sender'
 require 'huck/senders/sqs'
 require 'huck/senders/rabbitmq'
@@ -26,12 +26,10 @@ module Huck
   # generator will be invoked instead.
   #
   # == Parameters:
-  # config::
+  # config_file::
   #   Configuration file path
-  # generator::
-  #   The name of the generator to use
-  # sender::
-  #   The name of the sender to use
+  # config::
+  #   Configuration hash to use in place of a config file
   #
   def self.run kwargs = {}
     config = Huck::getarg kwargs, :config, nil
@@ -40,13 +38,7 @@ module Huck
       config = Huck::config :path => conf_file
     end
 
-    if config.has_key? 'generator'
-      gen_name = config['generator']
-    end
-    gen_arg = Huck::getarg kwargs, :generator, nil
-    gen_name = gen_arg if !gen_arg.nil?
-    g = Generator::factory :name => gen_name, :config => config
-
+    # Prep the sender
     if config.has_key? 'sender'
       send_name = config['sender']
     end
@@ -54,8 +46,18 @@ module Huck
     send_name = send_arg if !send_arg.nil?
     s = Sender::factory :name => send_name, :config => config
 
-    data = block_given? ? yield : g.generate
-    s.send Huck::serialize data
+    # Create an array of generators to execute
+    gen_list = config.has_key?('generators') ? config['generators'] : ['basic']
+    generators = Array.new
+    Huck::parse_providers gen_list do |gen_name, gen_config|
+      generators << Generator::factory(:name => gen_name, :config => gen_config)
+    end
+
+    # Execute the generators and send their output
+    generators.each do |g|
+      data = block_given? ? yield : g.generate
+      s.send data
+    end
   end
 
   # Main method to receive messages from a Huck client. If a block is given, the
@@ -63,8 +65,10 @@ module Huck
   # or default handler will be used.
   #
   # == Parameters:
-  # receiver::
-  #   The receiver to use (default=sqs)
+  # config_file::
+  #   Configuration file path
+  # config::
+  #   Configuration hash to use in place of a config file
   #
   def self.serve kwargs = {}
     config = Huck::getarg kwargs, :config, nil
@@ -73,13 +77,14 @@ module Huck
       config = Huck::config :path => conf_file
     end
 
-    if config.has_key? 'handler'
-      hand_name = config['handler']
+    # Create an array of handlers to run when messages arrive
+    hand_list = config.has_key?('handlers') ? config['handlers'] : ['echo']
+    handlers = Array.new
+    Huck::parse_providers hand_list do |hand_name, hand_config|
+      handlers << Handler::factory(:name => hand_name, :config => hand_config)
     end
-    hand_arg = Huck::getarg kwargs, :handler, nil
-    hand_name = hand_arg if !hand_arg.nil?
-    h = Handler::factory :name => hand_name, :config => config
 
+    # Prep the receiver
     if config.has_key? 'receiver'
       recv_name = config['receiver']
     end
@@ -87,9 +92,10 @@ module Huck
     recv_name = recv_arg if !recv_arg.nil?
     r = Receiver::factory :name => recv_name, :config => config
 
+    # Receive messages and pass them down to the handlers
     begin
       r.receive do |msg|
-        block_given? ? yield(msg) : h.handle(msg)
+        block_given? ? yield(msg) : handlers.each {|h| h.handle msg}
       end
     rescue Interrupt, SystemExit
       return

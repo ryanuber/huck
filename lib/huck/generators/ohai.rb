@@ -22,7 +22,9 @@ module Huck
         # Need to load the JSON output, since ohai emits a 'mash' object map
         # instead of normal hashes, making serialization ugly in some cases
         # like YAML where canonical objects (eg. !ruby/mash) is emitted.
-        JSON.load ohai.json_pretty_print
+        data = JSON.load ohai.json_pretty_print
+
+        Huck::serialize data, :format => @config['format']
       end
 
     end

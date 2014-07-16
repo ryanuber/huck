@@ -28,10 +28,10 @@ module Huck
         g = Generators::FacterGenerator.new
       when 'ohai'
         g = Generators::OhaiGenerator.new
-      when 'yaml'
-        g = Generators::YamlGenerator.new
-      when 'json'
-        g = Generators::JsonGenerator.new
+      when 'file'
+        g = Generators::FileGenerator.new
+      when 'exec'
+        g = Generators::ExecGenerator.new
       else
         raise RuntimeError, "bad generator: #{name}"
       end

@@ -1,20 +1,30 @@
+# Example Huck configuration file.
+# All uncommented values reflect defaults.
+
 ### Client configuration items
 
-# Available generators: basic, facter, ohai, json, yaml
-#generator: basic
-
 # Available senders: sqs, rabbitmq
-#sender: sqs
+sender: sqs
+
+# Configure generators. Having multiple generators configured
+# will send multiple messages during a client run.
+generators:
+  - basic:  { format: json }
+#  - ohai:   { format: json }
+#  - facter: { format: json }
+#  - file:   { path: /path/to/file.txt }
+#  - exec:   { command: uptime }
 
 ### Server configuration items
 
 # Available receivers: sqs, rabbitmq
-#receiver: sqs
+receiver: sqs
 
-# Available handlers: echo, exec
-#handler: echo
-
-# Provider-specific configurations follow
+# Configure handlers. Having multiple handlers configured will cause
+# huck to run each of them every time a message is received.
+handlers:
+  - echo
+#  - exec: { command: cat >> /tmp/huck-messages.txt }
 
 # SQS configuration. This will be used by the SQS sender and receiver.
 #sqs:
@@ -32,10 +42,3 @@
 #  pass: <pass>
 #  vhost: <vhost>
 #  queue_name: <queue>
-
-# Exec handler configuration. This configures a command to run when
-# a new Huck message is received by the server. In this example, the
-# content is simply fed into a file. Be sure to set the 'handler' to
-# 'exec' (above) if you wish for this handler to run.
-#exec:
-#  command: cat > /tmp/huck-in.txt
