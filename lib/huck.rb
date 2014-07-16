@@ -98,7 +98,20 @@ module Huck
     # Receive messages and pass them down to the handlers
     begin
       r.receive do |msg|
-        block_given? ? yield(msg) : handlers.each {|h| h.handle msg}
+        begin
+          if block_given?
+            hname = '<block>'
+            yield msg
+            next # skip other handlers
+          end
+
+          handlers.each do |h|
+            hname = h.class.to_s
+            h.handle msg
+          end
+        rescue => e
+          puts "Handler error (#{hname}): #{e.message}"
+        end
       end
     rescue Interrupt, SystemExit
       return
