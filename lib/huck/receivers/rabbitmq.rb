@@ -39,7 +39,7 @@ module Huck
         ch = conn.create_channel
         queue = ch.queue(@config['rabbitmq']['queue_name'])
 
-        queue.subscribe do |_, _, msg|
+        queue.subscribe :block => true do |_, _, msg|
           yield msg
         end
       end
