@@ -1,4 +1,4 @@
-# Huck
+# Huck [![Build Status](https://travis-ci.org/ryanuber/huck.svg?branch=master)](https://travis-ci.org/ryanuber/huck)
 
 Huck is a small, cross-platform Ruby application to make sharing information
 about hosts, applications, or anything else easy between machines on a network.
