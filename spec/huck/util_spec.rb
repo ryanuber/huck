@@ -49,4 +49,31 @@ describe 'Data Serialization' do
     output = YAML.dump input
     expect(Huck::serialize(input, :format => 'yaml')).to eq(output)
   end
+
+  it 'should raise on unknown format' do
+    expect { Huck::serialize(input, :format => 'bad') }.to raise_error
+  end
+end
+
+describe 'Parsing Providers' do
+  it 'should parse provider hashes correctly' do
+    config = [{'provider1' => {'config1' => 'val1'}}, 'provider2']
+    i = 0
+    Huck::parse_providers config do |name, config|
+      case i
+      when 0
+        expect(name).to eq('provider1')
+        expect(config).to eq({'config1' => 'val1'})
+      when 1
+        expect(name).to eq('provider2')
+        expect(config).to be {}
+      end
+      i += 1
+    end
+  end
+
+  it 'should raise an error on incorrect provider config' do
+    expect { Huck::parse_providers nil }.to raise_error
+    expect { Huck::parse_providers [0] }.to raise_error
+  end
 end

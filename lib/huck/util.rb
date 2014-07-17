@@ -60,7 +60,7 @@ module Huck
   #
   def self.must_load name
     if !self.try_load name
-      raise RuntimeError, "unable to load #{name}"
+      raise RuntimeError, "huck: unable to load #{name}"
     end
   end
 
@@ -108,7 +108,7 @@ module Huck
       elsif provider.kind_of? String
         name = provider
       else
-        raise RuntimeError, "expected hash, got: #{gen}"
+        raise RuntimeError, "expected string or hash, got: #{provider}"
       end
       yield name, config
     end
