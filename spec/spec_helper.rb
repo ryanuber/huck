@@ -9,7 +9,8 @@ end
 
 require 'huck'
 
-def mktempfile content
+def mktempfile kwargs = {}
+  content = Huck::getarg kwargs, :content, ''
   f = Tempfile.new 'huck'
   f.write content
   f.close

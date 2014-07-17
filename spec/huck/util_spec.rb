@@ -13,7 +13,7 @@ describe 'Huck Configuration' do
   end
 
   it 'should accept an alternate config file path' do
-    file = mktempfile "test: config\n"
+    file = mktempfile :content => "test: config\n"
     expect(Huck.config :path => file).to eq({'test' => 'config'})
   end
 end
