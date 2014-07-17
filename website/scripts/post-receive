@@ -1,0 +1,20 @@
+#!/bin/sh
+read FROM TO BRANCH
+
+if $BRANCH != "master"; then
+    echo "Not deploying branch $BRANCH"
+    exit 0
+fi
+
+export GIT_WORK_TREE=~/files
+
+mkdir -p $GIT_WORK_TREE
+git checkout -f master
+pushd $GIT_WORK_TREE
+
+bundle install
+jekyll build
+rsync -Saxv --delete _site/* /var/www/vhosts/huck.io
+
+popd
+rm -rf $GIT_WORK_TREE

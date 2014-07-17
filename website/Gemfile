@@ -1,0 +1,5 @@
+source :rubygems
+
+gem 'jekyll', '= 1.4'
+gem 'redcarpet'
+gem 'json_pure'
