@@ -5,14 +5,15 @@ module AWS
   end
 end
 
-describe 'sqs sender' do
+describe 'sqs receiver' do
   before(:each) do
     allow(Huck).to receive(:must_load)
     sqs = double
     queues = double
     allow(sqs).to receive(:queues).and_return(queues)
     queue = double
-    allow(queue).to receive(:send_message).with('test')
+    msg = double(:body => 'test')
+    allow(queue).to receive(:poll).and_yield(msg)
     allow(queues).to receive(:create).with('q').and_return(queue)
     allow(AWS::SQS).to receive(:new).with(
       :access_key_id => 'i',
@@ -22,21 +23,21 @@ describe 'sqs sender' do
   end
 
   it 'should raise if no sqs config provided' do
-    s = Huck::Sender::factory :name => 'sqs', :config => {}
-    expect { s.send 'test' }.to raise_error
+    r = Huck::Receiver::factory :name => 'sqs', :config => {}
+    expect { r.receive }.to raise_error
   end
 
   it 'should raise if not all required config provided' do
     config = {'sqs' => {'access_key_id' => 'test', 'region' => 'test'}}
-    s = Huck::Sender::factory :name => 'sqs', :config => config
-    expect { s.send 'test' }.to raise_error
+    r = Huck::Receiver::factory :name => 'sqs', :config => config
+    expect { r.receive }.to raise_error
   end
 
-  it 'should call the aws sdk to send a message' do
+  it 'should call the aws sdk to poll messages' do
     config = {'sqs' => {'access_key_id' => 'i', 'region' => 'r',
                         'secret_access_key' => 's', 'queue_name' => 'q'}}
-    s = Huck::Sender::factory :name => 'sqs', :config => config
-    s.send 'test'
+    r = Huck::Receiver::factory :name => 'sqs', :config => config
+    expect { |b| r.receive(&b) }.to yield_with_args('test')
   end
 
 end
