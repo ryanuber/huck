@@ -5,7 +5,7 @@ about hosts, applications, or anything else easy between machines on a network.
 
 Huck's current intended functionality is:
 
-* Generate some information about a host using something like
+* Generate some information using scripts, files, or something like
   [facter](https://projects.puppetlabs.com/projects/facter) or
   [ohai](http://docs.opscode.com/ohai.html)
 * Serialize and submit the information to a messaging queue
