@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'exec handler' do
   it 'should raise if no command provided' do
-    h = Huck::Handler::factory :name => 'exec'
+    h = Huck::Handler::factory :name => 'exec', :config => {}
     expect { h.verify_config }.to raise_error
   end
 
