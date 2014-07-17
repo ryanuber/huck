@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-module AWS
-  class SQS
-  end
-end
-
 describe 'sqs receiver' do
   before(:each) do
     allow(Huck).to receive(:must_load)

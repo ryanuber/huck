@@ -23,4 +23,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rspec-mocks'
   s.add_development_dependency 'simplecov'
+
+  s.add_development_dependency 'facter'
+  s.add_development_dependency 'ohai'
+  s.add_development_dependency 'aws-sdk'
+  s.add_development_dependency 'bunny'
 end

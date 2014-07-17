@@ -1,13 +1,8 @@
 require 'spec_helper'
 
-module Facter
-  def to_hash
-  end
-end
-
 describe 'facter generator' do
   before(:each) do
-    allow(Huck).to receive(:must_load)
+    allow(Huck).to receive(:try_load).and_return(true)
     allow(Facter).to receive(:to_hash).and_return({'a' => 'b'})
   end
 

@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-module Ohai
-  class System
-  end
-end
-
 describe 'ohai generator' do
   before(:each) do
     allow(Huck).to receive(:must_load)
