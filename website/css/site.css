@@ -1,0 +1,68 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #4d3d2d;
+}
+
+.banner {
+  width: 100%;
+  height: 140px;
+  background-color: #483828;
+}
+
+.banner .logo img {
+  padding: 12px 0;
+  height: 75px;
+}
+
+.page-container {
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 0;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 23px;
+  color: #fff;
+}
+
+.landing {
+  font-size: 40px;
+  text-align: center;
+  padding: 100px 50px;
+  font-weight: 700;
+}
+
+.title {
+  color: #dfb468;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+table {
+  padding: 30px;
+}
+
+tr, td {
+  padding: 0 20px;
+}
+
+td {
+  font-size: 23px;
+  color: #fff;
+  text-align: left;
+  vertical-align: top;
+}
+
+pre {
+  padding: 12px 12px;
+  border-radius: 3px;
+}
+
+code, pre {
+  font-family: 'Oxygen Mono';
+  font-size: 17px;
+  font-weight: 400;
+  border: 0;
+  background-color: #000;
+  color: #fff;
+}
