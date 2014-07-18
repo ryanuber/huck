@@ -63,6 +63,11 @@ module Huck
         end
       rescue Interrupt, SystemExit
         return
+      rescue => e
+        puts "Receiver error (#{self.class}): #{e.message}"
+        puts "Retrying in 5s..."
+        sleep 5
+        retry
       end
     end
 
