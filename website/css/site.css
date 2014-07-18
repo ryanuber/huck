@@ -16,7 +16,7 @@ a:hover {
 .banner {
   width: 100%;
   height: 140px;
-  background-color: #483828;
+  background-color: #331d09;
 }
 
 .banner .logo img {
@@ -64,7 +64,7 @@ td {
 }
 
 pre {
-  padding: 12px 12px;
+  padding: 12px;
   border-radius: 3px;
   font-family: 'Oxygen Mono';
   font-size: 17px;
@@ -72,11 +72,15 @@ pre {
 }
 
 code {
-  font-size: 18px;
   padding: 3px;
+  font-size: 18px;
   border-radius: 3px;
   background-color: #362311;
   color: #c0a377;
+}
+
+.highlight code {
+  padding: 0;
 }
 
 .highlight code, .highlight pre {

@@ -70,3 +70,29 @@ automatically to avoid forcing you to install both.
 Similarly, if you wish to use Facter or Ohai, you should have those gems
 installed. This is not required, as there are providers which do not require any
 external gems (such as the `file` or `exec` handlers).
+
+# Configuring
+
+Huck accepts configuration in two different ways based on how you are using it:
+either from a YAML config file, or from a ruby hash if you are using the
+library.
+
+You can see all available configuration options in the
+[sample config](https://github.com/ryanuber/huck/blob/master/huck.conf.sample).
+A minimal configuration might look something like the following:
+
+### Client
+```
+sender: sqs
+sqs: { queue_name: myqueue }
+generators:
+  - file: { path: /opt/myapp.json }
+```
+
+### Server
+```
+receiver: sqs
+sqs: { queue_name: myqueue }
+handlers:
+  - exec: { command: cat >> /opt/myapp.log }
+```
