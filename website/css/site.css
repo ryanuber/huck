@@ -4,6 +4,15 @@ body {
   background-color: #4d3d2d;
 }
 
+a, a:visited, a:active {
+  text-decoration: none;
+  color: #fad560;
+}
+
+a:hover {
+  color: #60fa79;
+}
+
 .banner {
   width: 100%;
   height: 140px;
@@ -38,8 +47,9 @@ body {
   font-weight: 700;
 }
 
-table {
-  padding: 30px;
+table.center {
+  margin: 0 auto;
+  padding-top: 30px;
 }
 
 tr, td {
