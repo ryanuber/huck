@@ -34,5 +34,14 @@ module Huck
       return s
     end
 
+    def transmit msg, kwargs = {}
+      msgtype = Huck::getarg kwargs, :type, nil
+      msgtype = 'normal' if message_type.nil?
+
+      m = {'type' => msgtype, 'message' => msg}
+      payload = MessagePack.pack m
+      send m
+    end
+
   end
 end

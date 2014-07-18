@@ -1,5 +1,6 @@
 require 'json'
 require 'yaml'
+require 'msgpack'
 
 require 'huck/version'
 require 'huck/util'
@@ -59,7 +60,7 @@ module Huck
       if !data.kind_of? String
         raise RuntimeError, "generator produced non-string result: #{data.class}"
       end
-      s.send data
+      s.transmit data
     end
   end
 
