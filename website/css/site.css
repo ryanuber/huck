@@ -66,13 +66,20 @@ td {
 pre {
   padding: 12px 12px;
   border-radius: 3px;
-}
-
-code, pre {
   font-family: 'Oxygen Mono';
   font-size: 17px;
-  font-weight: 400;
   border: 0;
+}
+
+code {
+  font-size: 18px;
+  padding: 3px;
+  border-radius: 3px;
+  background-color: #362311;
+  color: #c0a377;
+}
+
+.highlight code, .highlight pre {
   background-color: #000;
   color: #fff;
 }

@@ -56,6 +56,17 @@ Huck is written in ruby, and lives on
 
 # Installing
 
+Huck's core is a single gem with a short list of dependencies. To install it,
+run the following command:
+
 ```ruby
 $ gem install huck
 ```
+
+You will also need to have your message bus' gem installed, which would be
+`aws-sdk` for Amazon SQS, or `bunny` for RabbitMQ. Huck does not pull these in
+automatically to avoid forcing you to install both.
+
+Similarly, if you wish to use Facter or Ohai, you should have those gems
+installed. This is not required, as there are providers which do not require any
+external gems (such as the `file` or `exec` handlers).
