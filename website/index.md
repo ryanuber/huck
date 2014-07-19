@@ -86,7 +86,7 @@ A minimal configuration might look something like the following:
 sender: sqs
 sqs: { queue_name: myqueue }
 generators:
-  - file: { path: /opt/myapp.json }
+  - file: { path: /etc/nodeinfo }
 ```
 
 ### Server
@@ -94,5 +94,23 @@ generators:
 receiver: sqs
 sqs: { queue_name: myqueue }
 handlers:
-  - exec: { command: cat >> /opt/myapp.log }
+  - exec: { command: cat >> /var/log/myapp.log }
 ```
+
+In this example, the client is submitting the content of a file, and the server
+is dumping it into a log file. As more clients run, you would see lines being
+appended to the log file on the server machine.
+
+# Use cases
+
+A few things one might want to do with Huck are:
+
+* Add hosts into a monitoring system
+* Create entries for hosts in DNS
+* Register a new endpoint to an API proxy
+* Add nodes to a load balancer
+* Send call-backs for asynchronous tasks
+
+# Roadmap
+
+* Support message tagging and allow handlers to run based on tags
