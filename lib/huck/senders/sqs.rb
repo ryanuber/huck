@@ -11,16 +11,15 @@ module Huck
       end
 
       # Ensures that configuration is set properly before trying to use the
-      # connection data to talk to AWS
+      # connection data to talk to AWS. It is possible that IAM profiles are
+      # in use, so we can't strictly require that all of the access information
+      # is set in the configuration.
       def verify_config
         if !@config.has_key? 'sqs'
           raise RuntimeError, 'missing sqs sender config'
         end
-        ['access_key_id', 'secret_access_key', 'region',
-         'queue_name'].each do |key|
-          if !@config['sqs'].has_key? key
-            raise RuntimeError, "missing sqs sender config: #{key}"
-          end
+        if !@config['sqs'].has_key? 'queue_name'
+          raise RuntimeError, 'missing sqs sender config: queue_name'
         end
       end
 
@@ -33,11 +32,14 @@ module Huck
       def send msg
         verify_config
 
-        sqs = AWS::SQS.new(
-          :access_key_id => @config['sqs']['access_key_id'],
-          :secret_access_key => @config['sqs']['secret_access_key'],
-          :region => @config['sqs']['region']
-        )
+        options = Hash.new
+        [:access_key_id, :secret_access_key, :region].each do |arg|
+          if @config['sqs'].has_key? arg.to_s
+            options[arg] = @config['sqs'][arg.to_s]
+          end
+        end
+
+        sqs = AWS::SQS.new options
 
         queue = sqs.queues.create @config['sqs']['queue_name']
         queue.send_message msg
