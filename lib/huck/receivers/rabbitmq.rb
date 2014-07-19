@@ -14,10 +14,10 @@ module Huck
       # connection data to talk to RabbitMQ
       def verify_config
         if !@config.has_key? 'rabbitmq'
-          raise RuntimeError, 'missing rabbitmq config'
+          raise Huck::Error, 'missing rabbitmq config'
         end
         if !@config['rabbitmq'].has_key? 'queue_name'
-          raise RuntimeError, 'missing rabbitmq receiver config: queue_name'
+          raise Huck::Error, 'missing rabbitmq receiver config: queue_name'
         end
       end
 

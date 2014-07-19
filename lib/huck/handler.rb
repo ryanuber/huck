@@ -27,7 +27,7 @@ module Huck
       when 'exec'
         h = Handlers::ExecHandler.new
       else
-        raise RuntimeError, "bad handler: #{name}"
+        raise Huck::Error, "bad handler: #{name}"
       end
 
       h.config = config

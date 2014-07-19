@@ -31,8 +31,8 @@ describe 'Module Loading' do
     expect{Huck::must_load 'yaml'}.not_to raise_error
   end
 
-  it 'should raise a RuntimeError when module cannot be loaded' do
-    expect{Huck::must_load 'nonexistent'}.to raise_error(RuntimeError)
+  it 'should raise a Huck::Error when module cannot be loaded' do
+    expect{Huck::must_load 'nonexistent'}.to raise_error(Huck::Error)
   end
 
 end

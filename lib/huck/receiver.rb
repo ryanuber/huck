@@ -27,7 +27,7 @@ module Huck
       when 'rabbitmq'
         r = Receivers::RabbitMQReceiver.new
       else
-        raise RuntimeError, "bad receiver: #{name}"
+        raise Huck::Error, "bad receiver: #{name}"
       end
 
       r.config = config
@@ -63,6 +63,8 @@ module Huck
         end
       rescue Interrupt, SystemExit
         return
+      rescue Huck::Error
+        raise
       rescue => e
         puts "Receiver error (#{self.class}): #{e.message}"
         puts "Retrying in 5s..."

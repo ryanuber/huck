@@ -8,7 +8,7 @@ module Huck
       # Ensure that all JSON config items are properly set
       def verify_config
         if !@config.has_key? 'path'
-          raise RuntimeError, 'missing "file" generator config: "path"'
+          raise Huck::Error, 'missing "file" generator config: "path"'
         end
       end
 

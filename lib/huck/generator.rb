@@ -33,7 +33,7 @@ module Huck
       when 'exec'
         g = Generators::ExecGenerator.new
       else
-        raise RuntimeError, "bad generator: #{name}"
+        raise Huck::Error, "bad generator: #{name}"
       end
 
       g.config = config

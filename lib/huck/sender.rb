@@ -27,7 +27,7 @@ module Huck
       when 'rabbitmq'
         s = Senders::RabbitMQSender.new
       else
-        raise RuntimeError, "bad sender: #{name}"
+        raise Huck::Error, "bad sender: #{name}"
       end
 
       s.config = config

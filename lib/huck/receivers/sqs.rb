@@ -14,12 +14,12 @@ module Huck
       # connection data to talk to AWS
       def verify_config
         if !@config.has_key? 'sqs'
-          raise RuntimeError, 'missing sqs config'
+          raise Huck::Error, 'missing sqs config'
         end
         ['access_key_id', 'secret_access_key', 'region',
          'queue_name'].each do |key|
           if !@config['sqs'].has_key? key
-            raise RuntimeError, "missing sqs config: #{key}"
+            raise Huck::Error, "missing sqs config: #{key}"
           end
         end
       end

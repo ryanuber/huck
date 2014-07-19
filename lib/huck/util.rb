@@ -50,7 +50,7 @@ module Huck
     true
   end
 
-  # Try to load a module, and raise a RuntimeError if it is not
+  # Try to load a module, and raise a Huck::Error if it is not
   # loadable. This is useful for trying to load certain provider
   # code at runtime without dealing with LoadError.
   #
@@ -60,7 +60,7 @@ module Huck
   #
   def self.must_load name
     if !self.try_load name
-      raise RuntimeError, "huck: unable to load #{name}"
+      raise Huck::Error, "huck: unable to load #{name}"
     end
   end
 
@@ -83,7 +83,7 @@ module Huck
     when 'yaml'
       return YAML.dump data
     else
-      raise RuntimeError, "unknown format '#{format}'"
+      raise Huck::Error, "unknown format '#{format}'"
     end
   end
 
@@ -98,7 +98,7 @@ module Huck
   #
   def self.parse_providers data
     if !data.kind_of? Array
-      raise RuntimeError, "expected array, got: #{data}"
+      raise Huck::Error, "expected array, got: #{data}"
     end
     data.each do |provider|
       config = Hash.new
@@ -108,7 +108,7 @@ module Huck
       elsif provider.kind_of? String
         name = provider
       else
-        raise RuntimeError, "expected string or hash, got: #{provider}"
+        raise Huck::Error, "expected string or hash, got: #{provider}"
       end
       yield name, config
     end

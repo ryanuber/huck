@@ -13,7 +13,7 @@ module Huck
       # Ensures that configuration is set properly before executing
       def verify_config
         if !@config.has_key? 'command'
-          raise RuntimeError, 'missing "exec" generator config: "command"'
+          raise Huck::Error, 'missing "exec" generator config: "command"'
         end
       end
 

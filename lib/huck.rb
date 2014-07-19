@@ -3,6 +3,7 @@ require 'yaml'
 
 require 'huck/version'
 require 'huck/util'
+require 'huck/error'
 require 'huck/generator'
 require 'huck/generators/basic'
 require 'huck/generators/facter'
@@ -57,7 +58,7 @@ module Huck
     generators.each do |g|
       data = block_given? ? yield : g.generate
       if !data.kind_of? String
-        raise RuntimeError, "generator produced non-string result: #{data.class}"
+        raise Error, "generator produced non-string result: #{data.class}"
       end
       s.send data
     end

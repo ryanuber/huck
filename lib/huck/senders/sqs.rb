@@ -16,10 +16,10 @@ module Huck
       # is set in the configuration.
       def verify_config
         if !@config.has_key? 'sqs'
-          raise RuntimeError, 'missing sqs sender config'
+          raise Huck::Error, 'missing sqs sender config'
         end
         if !@config['sqs'].has_key? 'queue_name'
-          raise RuntimeError, 'missing sqs sender config: queue_name'
+          raise Huck::Error, 'missing sqs sender config: queue_name'
         end
       end
 
