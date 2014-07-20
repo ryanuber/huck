@@ -111,6 +111,26 @@ generator:
 $ echo "$(hostname): $(uname)" | huck run
 ```
 
+# Running
+
+Starting Huck from the command line is the quickest way to get going. Included
+with the gem is a small CLI wrapper you can use to launch both the server and
+the client.
+
+```bash
+# Start a server
+huck serve
+
+# Run the client
+huck run
+```
+
+By default, Huck looks in `~/huck.conf` for configuration. You can pass an
+alternate path for both the server and client using the `-c <path>` option.
+
+The client and server may also be run by importing the gem into other ruby
+programs. See the readme for usage.
+
 # Use cases
 
 A few things one might want to do with Huck are:
