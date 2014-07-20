@@ -83,6 +83,7 @@ You can see all available configuration options in the
 A minimal configuration might look something like the following:
 
 ### Client
+
 ```
 sender: sqs
 sqs: { queue_name: myqueue }
@@ -91,6 +92,7 @@ generators:
 ```
 
 ### Server
+
 ```
 receiver: sqs
 sqs: { queue_name: myqueue }
@@ -104,6 +106,7 @@ would see lines being appended to the log file on the server machine.
 
 Running the following command on the client would submit data into the stdin
 generator:
+
 ```
 $ echo "$(hostname): $(uname)" | huck run
 ```
