@@ -36,6 +36,7 @@ be running.
 				<li>Ohai</li>
 				<li>File reader</li>
 				<li>Command execution</li>
+				<li>stdin</li>
 			</ul>
 		</td>
         <td>
@@ -86,7 +87,7 @@ A minimal configuration might look something like the following:
 sender: sqs
 sqs: { queue_name: myqueue }
 generators:
-  - file: { path: /etc/nodeinfo }
+  - stdin
 ```
 
 ### Server
@@ -94,12 +95,18 @@ generators:
 receiver: sqs
 sqs: { queue_name: myqueue }
 handlers:
-  - exec: { command: cat >> /var/log/myapp.log }
+  - exec: { command: cat >> /var/log/nodeinfo.log }
 ```
 
-In this example, the client is submitting the content of a file, and the server
-is dumping it into a log file. As more clients run, you would see lines being
-appended to the log file on the server machine.
+In this example, the client will submit anything piped into the `huck run`
+command, and the server will dump it into a log file. As more clients run, you
+would see lines being appended to the log file on the server machine.
+
+Running the following command on the client would submit data into the stdin
+generator:
+```
+$ echo "$(hostname): $(uname)" | huck run
+```
 
 # Use cases
 
@@ -110,6 +117,7 @@ A few things one might want to do with Huck are:
 * Register a new endpoint to an API proxy
 * Add nodes to a load balancer
 * Send call-backs for asynchronous tasks
+* Submit state to a centralized orchestrator
 
 # Roadmap
 

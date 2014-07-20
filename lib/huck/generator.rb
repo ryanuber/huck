@@ -19,7 +19,7 @@ module Huck
       name = Huck::getarg kwargs, :name, nil
       config = Huck::getarg kwargs, :config, nil
 
-      name = 'basic' if name.nil?
+      name = 'stdin' if name.nil?
 
       case name
       when 'basic'
@@ -32,6 +32,8 @@ module Huck
         g = Generators::FileGenerator.new
       when 'exec'
         g = Generators::ExecGenerator.new
+      when 'stdin'
+        g = Generators::StdinGenerator.new
       else
         raise Huck::Error, "bad generator: #{name}"
       end
