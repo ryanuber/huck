@@ -9,7 +9,8 @@ sender: sqs
 # Configure generators. Having multiple generators configured
 # will send multiple messages during a client run.
 generators:
-  - basic:  { format: json }
+  - stdin
+#  - basic:  { format: json }
 #  - ohai:   { format: json }
 #  - facter: { format: json }
 #  - file:   { path: /path/to/file.txt }
