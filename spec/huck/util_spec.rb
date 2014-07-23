@@ -41,7 +41,7 @@ describe 'Data Serialization' do
   input = {'a' => 'b'}
 
   it 'should serialize to json' do
-    output = JSON.dump input
+    output = JSON.generate input
     expect(Huck::serialize(input, :format => 'json')).to eq(output)
   end
 

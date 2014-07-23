@@ -79,7 +79,7 @@ module Huck
 
     case format
     when 'json'
-      return JSON.dump data
+      return JSON.generate data
     when 'yaml'
       return YAML.dump data
     else
