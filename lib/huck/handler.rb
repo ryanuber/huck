@@ -17,7 +17,7 @@ module Huck
     #
     def self.factory kwargs = {}
       name = Huck::getarg kwargs, :name, nil
-      config = Huck::getarg kwargs, :config, nil
+      config = Huck::getarg kwargs, :config, {}
 
       name = 'echo' if name.nil?
 

@@ -1,7 +1,6 @@
 module Huck
 
   class Generator
-
     attr_accessor :config
 
     # Given a generator's name (or no name), return a new generator instance
@@ -17,7 +16,7 @@ module Huck
     #
     def self.factory kwargs = {}
       name = Huck::getarg kwargs, :name, nil
-      config = Huck::getarg kwargs, :config, nil
+      config = Huck::getarg kwargs, :config, {}
 
       name = 'stdin' if name.nil?
 
