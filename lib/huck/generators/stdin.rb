@@ -4,6 +4,8 @@ module Huck
 
     # A generator to use from the command line by piping in text
     class StdinGenerator < Generator
+      attr_accessor :stdin
+      @stdin = STDIN
 
       # Submit all data from stdin.
       def generate
@@ -14,11 +16,11 @@ module Huck
         # byte can be read, we proceed to read until EOF since we already have
         # our stream of data.
         begin
-          data += STDIN.read_nonblock 1
+          data += @stdin.read_nonblock 1
         rescue Errno::EWOULDBLOCK
           raise Huck::Error, 'no data from stdin'
         end
-        data += STDIN.read
+        data += @stdin.read
         data
       end
 
