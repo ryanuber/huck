@@ -10,4 +10,9 @@ describe 'stdin generator' do
 
     expect(g.generate).to eq("test\n")
   end
+
+  it 'should raise instead of blocking on no input' do
+    g = Huck::Generator::factory :name => 'stdin'
+    expect { g.generate }.to raise_error
+  end
 end

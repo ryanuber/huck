@@ -5,7 +5,12 @@ module Huck
     # A generator to use from the command line by piping in text
     class StdinGenerator < Generator
       attr_accessor :stdin
-      @stdin = STDIN
+
+      # Initialize stdin
+      def initialize
+        super
+        @stdin = STDIN
+      end
 
       # Submit all data from stdin.
       def generate
